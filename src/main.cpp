@@ -16,6 +16,9 @@ using namespace std;
  */
 void login(string fileName, int type);
 
+// 管理员一级菜单
+void adminMenu(Identity *identity);
+
 int main() {
     int select = 0;
 
@@ -93,6 +96,10 @@ void login(string fileName, int type) {
     while (ifs >> f_id && ifs >> f_name && ifs >> f_pwd) {
         if (f_id == id && f_name == name && pwd == f_pwd) {
             cout << "登录校验通过" << endl;
+        } else {
+            cout << "登录失败" << endl;
+            system("cls");
+            return;
         }
         if (type == 1) {
             user = new Student(name, pwd, id);
@@ -102,10 +109,32 @@ void login(string fileName, int type) {
             return;
         } else {
             user = new Administrator(name, pwd, id);
+            adminMenu(user);
             return;
         }
     }
-    cout << "登录失败" << endl;
-    system("pause");
-    return;
+    ifs.close();
+}
+
+void adminMenu(Identity *identity) {
+
+    int select = 0;
+    Administrator *admin = (Administrator *) identity;
+    while (true) {
+        admin->openMenu();
+        cin >> select;
+        if (select == 1) {
+            admin->addAccounts();
+        } else if (select == 2) {
+            admin->showAccounts();
+        } else if (select == 3) {
+            admin->showComputer();
+        } else if (select == 4) {
+            admin->deleteOrder();
+        } else {
+            cout << "注销成功" << endl;
+            return;
+        }
+    }
+
 }

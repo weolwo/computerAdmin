@@ -4,7 +4,11 @@
 #pragma once
 
 #include <iostream>
+#include <fstream>
+#include <vector>
 #include "Identity.h"
+#include "Student.h"
+#include "Teacher.h"
 
 /*管理员类中主要功能有：
     显示管理员操作的菜单界面
@@ -34,6 +38,22 @@ public:
 
     //清空预约记录
     void deleteOrder();
+
+    //初始化数据
+    void initData();
+
+    //校验重复信息
+    bool check(int id, int type);
+
+    void printStu();
+
+    void printTeacher();
+
+    // 存放学生信息的集合
+    vector<Student> stuList;
+
+    //存放教师信息的集合
+    vector<Teacher> teaList;
 
     //管理员id
     int id;
