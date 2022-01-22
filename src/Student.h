@@ -7,7 +7,11 @@
 #include "Identity.h"
 
 using namespace std;
-
+#include "globalFile.h"
+#include "ComputerRoom.h"
+#include <iostream>
+#include <fstream>
+#include <vector>
 /*
   学生类中主要功能有：
     显示学生操作的菜单界面
@@ -41,4 +45,6 @@ public:
     void cancelOrder();
 
     int id;
+    // 存放机房信息
+    vector<ComputerRoom> computerList;
 };

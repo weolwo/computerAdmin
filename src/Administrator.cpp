@@ -12,6 +12,7 @@ Administrator::Administrator(string name, string password, int id) {
     this->password = password;
     this->id = id;
     this->initData();
+    //初始化机房信息
 }
 
 void Administrator::openMenu() {
@@ -94,11 +95,24 @@ void Administrator::showAccounts() {
 }
 
 void Administrator::showComputer() {
-
+    if (this->computerList.size() <= 0) {
+        cout << "机房信息为空" << endl;
+        return;
+    }
+    for (const auto &item: computerList) {
+        cout << "机房编号" << item.id << " " << "数量：" << " " << item.numbers << endl;
+    }
+    system("pause");
+    system("cls");
 }
 
 void Administrator::deleteOrder() {
-
+    ifstream ifs;
+    ifs.open(ORDER_FILE, ios::trunc);
+    ifs.close();
+    cout << "清空成功" << endl;
+    system("pause");
+    system("cls");
 }
 
 void Administrator::initData() {
@@ -111,6 +125,7 @@ void Administrator::initData() {
     }
     this->stuList.clear();
     this->teaList.clear();
+    this->computerList.clear();
 
     Student stu;
     while (ifs >> stu.id && ifs >> stu.name && ifs >> stu.password) {
@@ -129,6 +144,19 @@ void Administrator::initData() {
         teaList.push_back(tea);
     }
     cout << "当前教师数据条数：" << teaList.size() << endl;
+
+    ifs.close();
+
+    ifs.open(COMPUTER_FILE, ios::in);
+    if (!ifs.is_open()) {
+        cout << "文件不存在" << endl;
+        return;
+    }
+    ComputerRoom computer;
+    while (ifs >> computer.id && ifs >> computer.numbers) {
+        computerList.push_back(computer);
+    }
+    cout << "当前机房数据条数：" << computerList.size() << endl;
 
     ifs.close();
 }
@@ -156,7 +184,7 @@ void Administrator::printStu() {
         return;
     }
     for (const auto &item: stuList) {
-        cout << "学生id：" << item.id << " " << "学生姓名" << " "<< item.name << endl;
+        cout << "学生id：" << item.id << " " << "学生姓名" << " " << item.name << endl;
     }
 }
 
@@ -166,6 +194,6 @@ void Administrator::printTeacher() {
         return;
     }
     for (const auto &item: teaList) {
-        cout << "老师id：" << item.id << " " << "老师姓名"<< " " << item.name << endl;
+        cout << "老师id：" << item.id << " " << "老师姓名" << " " << item.name << endl;
     }
 }

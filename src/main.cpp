@@ -19,6 +19,9 @@ void login(string fileName, int type);
 // 管理员一级菜单
 void adminMenu(Identity *identity);
 
+// 学生一级菜单
+void studentMenu(Identity *identity);
+
 int main() {
     int select = 0;
 
@@ -103,6 +106,7 @@ void login(string fileName, int type) {
         }
         if (type == 1) {
             user = new Student(name, pwd, id);
+            studentMenu(user);
             return;
         } else if (type == 2) {
             user = new Teacher(name, pwd, id);
@@ -136,5 +140,26 @@ void adminMenu(Identity *identity) {
             return;
         }
     }
+}
 
+void studentMenu(Identity *identity) {
+
+    int select = 0;
+    Student *student = (Student *) identity;
+    while (true) {
+        student->openMenu();
+        cin >> select;
+        if (select == 1) {
+            student->applyOrder();
+        } else if (select == 2) {
+            student->showOrder();
+        } else if (select == 3) {
+            student->showAllOrder();
+        } else if (select == 4) {
+            student->cancelOrder();
+        } else {
+            cout << "注销成功" << endl;
+            return;
+        }
+    }
 }

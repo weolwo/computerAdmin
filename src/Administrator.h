@@ -9,6 +9,7 @@
 #include "Identity.h"
 #include "Student.h"
 #include "Teacher.h"
+#include "ComputerRoom.h"
 
 /*管理员类中主要功能有：
     显示管理员操作的菜单界面
@@ -54,6 +55,9 @@ public:
 
     //存放教师信息的集合
     vector<Teacher> teaList;
+
+    // 存放机房信息
+    vector<ComputerRoom> computerList;
 
     //管理员id
     int id;
